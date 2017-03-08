@@ -19,7 +19,7 @@ TIMEZONE = 'Europe/Athens'
 
 DEFAULT_LANG = u'en'
 
-THEME="/home/ikakavas/.virtualenvs/blog/local/lib/python2.7/site-packages/pelican/themes/Flex"
+THEME="/home/ikakavas/code/pelican-themes/Flex"
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
@@ -35,6 +35,7 @@ LINKS = (('geocreepy', 'http://www.geocreepy.com'),
 SOCIAL = (('twitter', 'https://twitter.com/ilektrojohn'),
         ('github', 'https://github.com/jkakavas'),
         ('linkedin', 'https://linkedin.com/in/jkakavas',),
+        ('hackerone', 'https://www.hackerone.com/ilektrojohn',),
         ('rss', '//economyofmechanism.com/feeds/all.atom.xml'))
 
 
