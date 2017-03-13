@@ -266,7 +266,7 @@ So I replaced the obfuscated code with the de-obfuscated version of `/data/githu
 .. code:: ruby
 
     def validate(options)
-        pp options[:idp_certificate]
+        pp options
         if !SAML.mocked[:skip_validate_signature] && options[:idp_certificate]
           puts 'Going to validate the signature'
           validate_has_signature
@@ -440,10 +440,12 @@ I submitted the report via Hackerone on January 10th. I receive and acknowledgem
 XML Signature Wrapping Attacks
 +++++++++++++++++++++++++++++++++ 
 
+Overiew
+````````
+
 Next weekend I found myself with some time to spare so I thought I'd give my testing software another spin in order to look for more issues. I have a test suite that would attempt all attacks described in the `2012 paper <https://www.usenix.org/conference/usenixsecurity12/technical-sessions/presentation/somorovsky>`_
 
 Running the tool, it reported quite quickly that the implementation is vulnerable to a specific XML Signature Wrapping (XSW) attack, caused by the fact that the part that validates the signature and the part that implements business logic have different views on the data.
-
 GHE SAML SP implementation was vulnerable to a crafted SAML Response that contains two SAML Assertions. Assuming the Legitimate Assertion is LA, the Forged Assertion is FA and LAS is the signature of the Legitimate Assertion, the malicious crafted SAML Response would look like this:
 
 ::
@@ -463,6 +465,8 @@ GHE SAML SP implementation was vulnerable to a crafted SAML Response that contai
 
 Upon receiving such a SAML response, GHE would successfully verify and consume it creating a session for **Attacker**, instead of **Legitimate User**, even if FA is **not** signed. 
 
+Details
+```````
 Let's see why GHE is vulnerable to this attack by taking a look at the de-obfuscated source code as before:
 
 The basic problem is that the implementers made an assumption that there will always be only one Assertion in a SAML response.
@@ -615,8 +619,8 @@ Back to ``validate`` of ``response.rb``, all of the below
 
 would return true as they operate on data of the Forged Assertion and the attacker can freely control them to be valid.
 
-PoC - Steps to reproduce
-`````````````````````````````
+PoC
+````
 
 The code/toolset that I was using for testing is not yet in a form to be released/shared (hopefully soon) so I used `SAML Raider <https://github.com/SAMLRaider/SAMLRaider>`_ in order to describe a PoC with steps to be reproduced by Github Security team.
 
@@ -633,7 +637,7 @@ The code/toolset that I was using for testing is not yet in a form to be release
         
     .. figure:: /images/xsw1.png
         :alt: SAML Authentication Request
-        :width: 80%
+        :width: 60%
 
 6.  Login at your Identity Provider as a valid user
 
@@ -660,8 +664,10 @@ The code/toolset that I was using for testing is not yet in a form to be release
         :alt: Logged in as victim
         :width: 80%
 
+
 Exploitability
 ```````````````
+
 An attacker can bypass authentication given one of the following is true
 
 1. The attacker is an existing user of a GHE instance that uses SAML authentication.
