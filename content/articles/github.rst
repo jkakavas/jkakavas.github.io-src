@@ -725,7 +725,7 @@ Timeline
 
 - 2017-01-27: Asked for update on mitigation/release
 
-- 2017-01-12: Mitigation released with v. 2.8.7 and bounty awarded
+- 2017-01-31: Mitigation released with v. 2.8.7 and bounty awarded
 
 
 Full SAML Implementation Assessment
