@@ -5,10 +5,10 @@ from __future__ import unicode_literals
 AUTHOR = u'Ioannis Kakavas'
 SITENAME = u'Economy of mechanism'
 SITESUBTITLE = u'Security is hard'
-SITEURL = ''
+SITEURL = 'http://www.economyofmechanism.com'
 ROBOTS = 'index, follow'
 
-COPYRIGHT_YEAR = 2016
+COPYRIGHT_YEAR = 2017
 CC_LICENSE = { 'name': 'Creative Commons Attribution-NonCommercial-ShareAlike', 'version':'4.0', 'slug': 'by-nc-sa' }
 
 MAIN_MENU = True
