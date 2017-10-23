@@ -10,7 +10,7 @@ Ioannis Kakavas
 
 What
 ++++
-Identity and Security Engineer at `GRNET <https://grnet.gr/>`_
+Security Engineer at `Elastic <https://www.elastic.co/>`_
 
 Maintains `cree.py osint framework <http://www.geocreepy.com>`_
 
